@@ -8,7 +8,8 @@ $conexion= mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if(!$conexion){
 die("Fallo:" . mysqli_connect_error());
 }
-$sql="SELECT nombre, fotos, descripcion FROM productos WHERE ID=6";
+//PARA TRAER DATOS
+$sql="SELECT nombre, fotos, descripcion FROM productos WHERE id=6"; //con el where especifico que tabla me quiero ttraer en este caso con el id
 $resultado = mysqli_query($conexion, $sql);
 $resultados = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 function mapear($fila) {return $fila;}
@@ -21,7 +22,28 @@ $foto_link=$fila["fotos"];
 $nombre_producto=$fila["nombre"];
 $desc=$fila["descripcion"];
 };
+//PARA ACTUALIZAR
+// function actualizarNombre(){
+// global $conexion;
+// $sqlUpdate="UPDATE productos SET nombre='Iphone 15 pro max 164GB' WHERE id=6";
+// if(mysqli_query($conexion, $sqlUpdate)){
 
+// }else{
+//     echo 'error';
+// }
+// }
+// actualizarNombre();
+//ELIMINAR UNA TABLA ESPECIFICA EN LA BASE DE DATOS:
+function deleteTable(){
+global $conexion;
+$sqlDelete="DELETE FROM productos WHERE id=6";
+if(mysqli_query($conexion, $sqlDelete)){
+echo 'borrado';
+}else{
+   echo 'error';
+}
+}
+deleteTable();
 mysqli_close($conexion);
 ?>
 <!DOCTYPE html>
@@ -47,6 +69,7 @@ mysqli_close($conexion);
 <p class="underline">Descipcion:</p>
 <p><p><?php echo $desc ?></p></p>
 </div>
+
 </div>
 <footer>
 <?php 
@@ -54,4 +77,5 @@ mysqli_close($conexion);
     ?>
 </footer>
 </body>
+
 </html>
